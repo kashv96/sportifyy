@@ -16,7 +16,7 @@ class LoginPage extends StatelessWidget {
                 'Discover Local Sports!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 30, // Slightly larger for emphasis
+                  fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
-                  color: Colors.black54, // Darker for better contrast
+                  color: Colors.black54,
                 ),
               ),
               const SizedBox(height: 32),
@@ -40,9 +40,9 @@ class LoginPage extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: Colors.black, // Text color
+                  backgroundColor: Colors.black,
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  minimumSize: const Size(double.infinity, 50), // Full width
+                  minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -55,12 +55,12 @@ class LoginPage extends StatelessWidget {
                   // Forgot password logic
                 },
                 style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero, // No padding to align text left
+                  padding: EdgeInsets.zero,
                   alignment: Alignment.centerLeft,
                 ),
                 child: const Text(
                   'Forgot your login details?',
-                  style: TextStyle(color: Colors.black87), // Darker text
+                  style: TextStyle(color: Colors.black87),
                 ),
               ),
               const Padding(
@@ -129,7 +129,7 @@ class LoginPage extends StatelessWidget {
         labelText: label,
         labelStyle: const TextStyle(color: Colors.black54),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25), // Slightly less rounded
+          borderRadius: BorderRadius.circular(25),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(25),
@@ -146,9 +146,9 @@ class LoginPage extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.black, // Button background color
+        backgroundColor: Colors.black,
         shape: const StadiumBorder(),
-        minimumSize: const Size(130, 50), // Larger size
+        minimumSize: const Size(130, 50),
       ),
       child: Text(
         label,

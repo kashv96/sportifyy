@@ -21,14 +21,12 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Rubik',
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            // You can remove fallback fonts if you're sure about font availability
           ),
           bodyText2: TextStyle(
             fontFamily: 'Rubik',
             fontSize: 10,
             fontWeight: FontWeight.bold,
           ),
-          // Add other text styles as needed
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
@@ -36,7 +34,6 @@ class MyApp extends StatelessWidget {
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
           ),
         ),
-        // Add other theme data as needed
       ),
       home: WelcomeScreen(),
       routes: {

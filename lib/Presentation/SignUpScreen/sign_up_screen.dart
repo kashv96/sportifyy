@@ -14,14 +14,13 @@ class SignUpPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(vertical: 26.0),
               decoration: const BoxDecoration(
-                color:
-                    Colors.white, // Light grey color for the top box background
+                color: Colors.white,
               ),
               child: Column(
                 children: [
                   Image.asset(
                     'assets/images/sign_up_page_image.png',
-                    height: 120, // Adjusted size of the image
+                    height: 120,
                   ),
                   const SizedBox(height: 8),
                   const Text(
@@ -53,7 +52,7 @@ class SignUpPage extends StatelessWidget {
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(50),
                   topRight: Radius.circular(50),
-                ), // Light grey color for the top box background
+                ),
               ),
               child: Column(
                 children: [
@@ -109,10 +108,10 @@ class SignUpPage extends StatelessWidget {
       obscureText: obscureText,
       decoration: InputDecoration(
         labelText: label,
-        contentPadding: const EdgeInsets.symmetric(
-            vertical: 15.0, horizontal: 20.0), // Reduced padding
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20), // More rounded corners
+          borderRadius: BorderRadius.circular(20),
           borderSide: BorderSide(color: Colors.grey.shade400),
         ),
         enabledBorder: OutlineInputBorder(

@@ -9,24 +9,22 @@ class WelcomeScreen extends StatelessWidget {
     var screenWidth = size.width;
 
     return Scaffold(
-      backgroundColor: Colors
-          .white, // Set the background color to match the animation background
+      backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Lottie.asset(
             'assets/json/player_animation.json',
             width: screenWidth,
-            height: screenHeight * 0.4, // Adjusted for aspect ratio
+            height: screenHeight * 0.4,
             fit: BoxFit.contain,
           ),
-          const SizedBox(height: 36), // Add a little top margin to the text
+          const SizedBox(height: 36),
           const Text(
             'Sportifyy',
             style: TextStyle(
-              fontSize: 36, // Adjust font size as needed
-              fontWeight: FontWeight
-                  .w800, // Set to FontWeight.w500 for a medium bold look
+              fontSize: 36,
+              fontWeight: FontWeight.w800,
             ),
           ),
           const Padding(
@@ -36,27 +34,23 @@ class WelcomeScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: Colors
-                    .black54, // Adjust the text color to give a softer look
+                color: Colors.black54,
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(
-                vertical: 32.0, horizontal: 50.0), // Add more margin as needed
+            padding:
+                const EdgeInsets.symmetric(vertical: 32.0, horizontal: 50.0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
-                backgroundColor: Colors.black, // Button text color
-                minimumSize: const Size(
-                    double.infinity, 50), // Set the button to be a bit larger
-                textStyle: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 20), // Increase text size inside the button
+                backgroundColor: Colors.black,
+                minimumSize: const Size(double.infinity, 50),
+                textStyle:
+                    const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
               ),
               onPressed: () {
-                Navigator.of(context)
-                    .pushNamed('/signup'); // Navigate to the login route
+                Navigator.of(context).pushNamed('/signup');
               },
               child: const Text('Get Started'),
             ),
