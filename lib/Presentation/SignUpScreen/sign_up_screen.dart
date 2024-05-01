@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get_it_mixin/get_it_mixin.dart';
+import 'package:sportifyy/Providers/user_provider.dart';
+import 'package:sportifyy/injection.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget with GetItStatefulWidgetMixin {
+  SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> with GetItStateMixin {
+  final UserProvider _userProvider = getIt();
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -57,17 +68,26 @@ class SignUpPage extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(height: 38),
-                  _buildTextField(label: 'Username'),
+                  _buildTextField(
+                      label: 'Username',
+                      onChanged: (val) => _userProvider.setUsername(val)),
                   const SizedBox(height: 20),
-                  _buildTextField(label: 'Password', obscureText: true),
+                  _buildTextField(
+                      label: 'Password',
+                      onChanged: (val) => _userProvider.setPassword(val),
+                      obscureText: true),
                   const SizedBox(height: 20),
-                  _buildTextField(label: 'Full Name'),
+                  _buildTextField(
+                      label: 'Full Name',
+                      onChanged: (val) => _userProvider.setFullName(val)),
                   const SizedBox(height: 20),
-                  _buildTextField(label: 'Email Address'),
+                  _buildTextField(
+                      label: 'Email Address',
+                      onChanged: (val) => _userProvider.setEmail(val)),
                   const SizedBox(height: 62),
                   ElevatedButton(
                     onPressed: () {
-                      // Implement sign-up logic
+                      _userProvider.signUp();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
@@ -103,8 +123,12 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField({required String label, bool obscureText = false}) {
+  Widget _buildTextField(
+      {required String label,
+      required Function(String) onChanged,
+      bool obscureText = false}) {
     return TextField(
+      onChanged: onChanged,
       obscureText: obscureText,
       decoration: InputDecoration(
         labelText: label,
