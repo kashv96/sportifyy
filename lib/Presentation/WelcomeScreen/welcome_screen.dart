@@ -50,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                     const TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed('/signup');
+                Navigator.of(context).pushNamed('/login');
               },
               child: const Text('Get Started'),
             ),
