@@ -18,6 +18,8 @@ dependencies:
   injectable: ^1.5.3
   dartz: ^0.10.1
   supabase_flutter: ^2.5.2
+  fluttertoast: ^8.0.8
+  font_awesome_flutter: ^10.7.0
   
 dev_dependencies:
   flutter_test:
@@ -32,8 +34,12 @@ flutter:
 
   assets:
     - assets/images/sign_up_page_image.png
+    - assets/images/story_image_01.png
+    - assets/images/story_image_02.png
+    - assets/images/story_image_03.png
     - assets/gifs/
     - assets/json/player_animation.json
+    - assets/json/ball_animation.json
     - assets/sounds/
 
 
