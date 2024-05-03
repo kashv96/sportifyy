@@ -17,8 +17,9 @@ class CustomBottomNavigationBar extends StatefulWidget {
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index, String iconRoute) {
     widget.onItemSelected(index);
+    Navigator.of(context).pushNamed(iconRoute);
   }
 
   @override
@@ -26,24 +27,31 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     List<Widget> items = List.generate(5, (index) {
       bool isSelected = widget.selectedIndex == index;
       IconData iconData;
+      String iconRoute = '/home';
       switch (index) {
         case 0:
           iconData = FontAwesomeIcons.houseChimney;
+          iconRoute = '/home';
           break;
         case 1:
           iconData = FontAwesomeIcons.locationArrow;
+          iconRoute = '/home';
           break;
         case 2:
           iconData = FontAwesomeIcons.solidSquarePlus;
+          iconRoute = '/create-game-event';
           break;
         case 3:
           iconData = FontAwesomeIcons.solidComments;
+          iconRoute = '/home';
           break;
         case 4:
           iconData = FontAwesomeIcons.solidUser;
+          iconRoute = '/home';
           break;
         default:
           iconData = FontAwesomeIcons.houseChimney;
+          iconRoute = '/home';
       }
       return Expanded(
         child: AnimatedContainer(
@@ -53,7 +61,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             icon: Icon(iconData,
                 size: isSelected ? 30 : 24,
                 color: isSelected ? Colors.black : Colors.grey),
-            onPressed: () => _onItemTapped(index),
+            onPressed: () => _onItemTapped(index, iconRoute),
           ),
         ),
       );
