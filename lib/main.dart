@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sportifyy/Presentation/HomePageScreen/home_page_screen.dart';
 import 'package:sportifyy/Presentation/WelcomeScreen/welcome_screen.dart';
 import 'package:sportifyy/injection.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -44,11 +45,12 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: WelcomeScreen(),
+      home: HomePageScreen(),
       routes: {
         '/welcome': (context) => WelcomeScreen(),
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignUpPage(),
+        '/home': (context) => HomePageScreen()
       },
     );
   }

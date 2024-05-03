@@ -1,7 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
+import 'package:sportifyy/Presentation/WelcomeScreen/welcome_screen.dart';
 import 'package:sportifyy/Providers/user_provider.dart';
+import 'package:sportifyy/Widgets/loading_diaglog.dart';
+import 'package:sportifyy/Widgets/toast_helper.dart';
 import 'package:sportifyy/injection.dart';
 
 class SignUpPage extends StatefulWidget with GetItStatefulWidgetMixin {
@@ -19,10 +25,18 @@ class _SignUpPageState extends State<SignUpPage> with GetItStateMixin {
   String? _usernameError;
 
   void _handleSignUp(BuildContext context) async {
+    LoadingDialog.show(context, message: "Loading your profile...");
     try {
       await _userProvider.signUp();
-      _showToast(context, 'Sign up successful!', Colors.green);
+      await Future.delayed(const Duration(seconds: 2));
+      LoadingDialog.hide(context);
+      ToastHelper.show('Sign up successful!', textColor: Colors.green);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => WelcomeScreen()),
+      );
     } on Exception catch (e) {
+      LoadingDialog.hide(context);
       setState(() {
         if (e.toString().contains('Email')) {
           _emailError = 'Email already in use';
@@ -31,19 +45,10 @@ class _SignUpPageState extends State<SignUpPage> with GetItStateMixin {
         } else if (e.toString().contains('Username')) {
           _usernameError = 'Username already taken';
         } else {
-          _showToast(context, e.toString(), Colors.red);
+          ToastHelper.show(e.toString(), textColor: Colors.red);
         }
       });
     }
-  }
-
-  void _showToast(BuildContext context, String message, Color textColor) {
-    final snackbar = SnackBar(
-      content: Text(message, style: TextStyle(color: textColor)),
-      backgroundColor: Colors.white,
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
   @override
