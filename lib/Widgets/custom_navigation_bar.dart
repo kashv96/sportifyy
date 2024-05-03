@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final int selectedIndex;
@@ -27,22 +28,22 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       IconData iconData;
       switch (index) {
         case 0:
-          iconData = Icons.home;
+          iconData = FontAwesomeIcons.houseChimney;
           break;
         case 1:
-          iconData = Icons.search;
+          iconData = FontAwesomeIcons.locationArrow;
           break;
         case 2:
-          iconData = Icons.add;
+          iconData = FontAwesomeIcons.solidSquarePlus;
           break;
         case 3:
-          iconData = Icons.notifications;
+          iconData = FontAwesomeIcons.solidComments;
           break;
         case 4:
-          iconData = Icons.person;
+          iconData = FontAwesomeIcons.solidUser;
           break;
         default:
-          iconData = Icons.home;
+          iconData = FontAwesomeIcons.houseChimney;
       }
       return Expanded(
         child: AnimatedContainer(

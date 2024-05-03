@@ -63,7 +63,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         actions: const [
           Padding(
             padding: EdgeInsets.only(right: 20.0),
-            child: Icon(Icons.notifications_none, color: Colors.black),
+            child: Icon(FontAwesomeIcons.solidBell, color: Colors.black),
           ),
         ],
         title: const Text('Sports Events',
@@ -80,7 +80,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 style: const TextStyle(color: Colors.black),
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
-                  hintText: 'Enter sport or location',
+                  hintText: 'Enter Location',
                   hintStyle: const TextStyle(color: Colors.black),
                   prefixIcon: const Icon(Icons.search, color: Colors.black),
                   filled: false,
@@ -106,28 +106,32 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 scrollDirection: Axis.horizontal,
                 children: const <Widget>[
                   CircularIconTile(
-                      title: 'Create',
-                      image: AssetImage('assets/images/story_image_03.png')),
+                    title: 'Baseball',
+                    image: AssetImage('assets/images/baseball.png'),
+                  ),
                   CircularIconTile(
-                      title: 'Join Now',
-                      image: AssetImage('assets/images/story_image_02.png')),
+                    title: 'Soccer',
+                    image: AssetImage('assets/images/soccerball.png'),
+                  ),
                   CircularIconTile(
-                      title: 'Get Started',
-                      image: AssetImage('assets/images/story_image_01.png')),
+                      title: 'Volleyball',
+                      image: AssetImage('assets/images/volleyball.png')),
                   CircularIconTile(
-                      title: 'Find Players',
-                      image: AssetImage('assets/images/story_image_02.png')),
+                    title: 'Basketball',
+                    image: AssetImage('assets/images/basketball.png'),
+                  ),
                   CircularIconTile(
-                      title: 'Gear Up',
-                      image: AssetImage('assets/images/story_image_03.png')),
+                    title: 'Table Tennis',
+                    image: AssetImage('assets/images/table_tennis.png'),
+                  ),
                 ],
               ),
             ),
             const SizedBox(height: 30),
             Center(
               child: SlideSwitch(
-                leftOption: 'Invitations',
-                rightOption: 'Schedule Game',
+                leftOption: 'Schedule Game',
+                rightOption: 'Invitations',
                 onChanged: (bool isLeftSelected) {
                   print(
                       'Selected option: ${isLeftSelected ? 'Invitations' : 'Schedule Game'}');

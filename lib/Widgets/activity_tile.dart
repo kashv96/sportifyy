@@ -17,7 +17,7 @@ class ActivityTile extends StatelessWidget {
     required this.image,
     this.isActive = false,
     // ignore: deprecated_member_use
-    this.icon = FontAwesomeIcons.soccerBall,
+    this.icon = FontAwesomeIcons.solidSoccerBall,
   }) : super(key: key);
 
   @override

@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
-import 'package:sportifyy/Presentation/WelcomeScreen/welcome_screen.dart';
+import 'package:sportifyy/Presentation/Welcome/welcome_screen.dart';
 import 'package:sportifyy/Providers/user_provider.dart';
 import 'package:sportifyy/Widgets/loading_diaglog.dart';
 import 'package:sportifyy/Widgets/toast_helper.dart';
 import 'package:sportifyy/injection.dart';
+
+import '../../Widgets/custom_text_field.dart';
 
 class SignUpPage extends StatefulWidget with GetItStatefulWidgetMixin {
   SignUpPage({super.key});
@@ -128,30 +130,32 @@ class _SignUpPageState extends State<SignUpPage> with GetItStateMixin {
                     },
                   ),
                   const SizedBox(height: 20),
-                  _buildTextField(
-                      label: 'Username',
-                      onChanged: (val) => _userProvider.setUsername(val),
-                      errorText: _usernameError),
+                  CustomTextField(
+                    label: 'Username',
+                    onChanged: (val) => _userProvider.setUsername(val),
+                    errorText: _usernameError,
+                  ),
                   const SizedBox(height: 20),
-                  _buildTextField(
+                  CustomTextField(
                       label: 'Password',
                       onChanged: (val) => _userProvider.setPassword(val),
                       obscureText: true),
                   const SizedBox(height: 20),
-                  _buildTextField(
+                  CustomTextField(
                       label: 'Full Name',
                       onChanged: (val) => _userProvider.setFullName(val)),
                   const SizedBox(height: 20),
-                  _buildTextField(
-                      label: 'Email Address',
-                      onChanged: (val) => _userProvider.setEmail(val),
-                      emailKeypad: true,
-                      errorText: _emailError),
+                  CustomTextField(
+                    label: 'Email Address',
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (val) => _userProvider.setEmail(val),
+                    errorText: _emailError,
+                  ),
                   const SizedBox(height: 20),
-                  _buildTextField(
+                  CustomTextField(
                       label: 'Phone Number',
+                      keyboardType: TextInputType.phone,
                       onChanged: (val) => _userProvider.setPhoneNumber(val),
-                      phoneKeypad: true,
                       errorText: _phoneError,
                       inputFormatters: [
                         FilteringTextInputFormatter
@@ -199,45 +203,6 @@ class _SignUpPageState extends State<SignUpPage> with GetItStateMixin {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextField({
-    required String label,
-    required Function(dynamic) onChanged,
-    bool obscureText = false,
-    bool phoneKeypad = false,
-    emailKeypad = false,
-    String? errorText,
-    List<TextInputFormatter>? inputFormatters,
-  }) {
-    return TextField(
-      onChanged: onChanged,
-      obscureText: obscureText,
-      inputFormatters: inputFormatters,
-      keyboardType: phoneKeypad
-          ? TextInputType.phone
-          : emailKeypad
-              ? TextInputType.emailAddress
-              : TextInputType.text,
-      decoration: InputDecoration(
-        errorText: errorText,
-        labelText: label,
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(color: Colors.grey.shade400),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(color: Colors.grey.shade400),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: const BorderSide(color: Colors.black),
         ),
       ),
     );

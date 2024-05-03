@@ -20,6 +20,7 @@ dependencies:
   supabase_flutter: ^2.5.2
   fluttertoast: ^8.0.8
   font_awesome_flutter: ^10.7.0
+  intl: ^0.19.0 
   
 dev_dependencies:
   flutter_test:
@@ -37,6 +38,12 @@ flutter:
     - assets/images/story_image_01.png
     - assets/images/story_image_02.png
     - assets/images/story_image_03.png
+    - assets/images/baseball.png
+    - assets/images/basketball.png
+    - assets/images/lawn_tennis.png
+    - assets/images/soccerball.png
+    - assets/images/volleyball.png
+    - assets/images/table_tennis.png
     - assets/gifs/
     - assets/json/player_animation.json
     - assets/json/ball_animation.json
