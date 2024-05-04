@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   final int selectedIndex;
@@ -16,8 +17,9 @@ class CustomBottomNavigationBar extends StatefulWidget {
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index, String iconRoute) {
     widget.onItemSelected(index);
+    Navigator.of(context).pushNamed(iconRoute);
   }
 
   @override
@@ -25,24 +27,31 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     List<Widget> items = List.generate(5, (index) {
       bool isSelected = widget.selectedIndex == index;
       IconData iconData;
+      String iconRoute = '/home';
       switch (index) {
         case 0:
-          iconData = Icons.home;
+          iconData = FontAwesomeIcons.houseChimney;
+          iconRoute = '/home';
           break;
         case 1:
-          iconData = Icons.search;
+          iconData = FontAwesomeIcons.locationArrow;
+          iconRoute = '/home';
           break;
         case 2:
-          iconData = Icons.add;
+          iconData = FontAwesomeIcons.solidSquarePlus;
+          iconRoute = '/create-game-event';
           break;
         case 3:
-          iconData = Icons.notifications;
+          iconData = FontAwesomeIcons.solidComments;
+          iconRoute = '/home';
           break;
         case 4:
-          iconData = Icons.person;
+          iconData = FontAwesomeIcons.solidUser;
+          iconRoute = '/home';
           break;
         default:
-          iconData = Icons.home;
+          iconData = FontAwesomeIcons.houseChimney;
+          iconRoute = '/home';
       }
       return Expanded(
         child: AnimatedContainer(
@@ -52,7 +61,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             icon: Icon(iconData,
                 size: isSelected ? 30 : 24,
                 color: isSelected ? Colors.black : Colors.grey),
-            onPressed: () => _onItemTapped(index),
+            onPressed: () => _onItemTapped(index, iconRoute),
           ),
         ),
       );

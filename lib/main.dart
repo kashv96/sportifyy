@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sportifyy/Presentation/HomePageScreen/home_page_screen.dart';
-import 'package:sportifyy/Presentation/WelcomeScreen/welcome_screen.dart';
+import 'package:sportifyy/Presentation/GameEvent/add_game_event.dart';
+import 'package:sportifyy/Presentation/HomePage/home_page_screen.dart';
+import 'package:sportifyy/Presentation/Welcome/welcome_screen.dart';
 import 'package:sportifyy/injection.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'Presentation/LoginPageScreen/login_page_screen.dart';
-import 'Presentation/SignUpScreen/sign_up_screen.dart';
+import 'Presentation/LoginPage/login_page_screen.dart';
+import 'Presentation/SignUp/sign_up_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,12 +46,13 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: HomePageScreen(),
+      home: AddGameEventPage(),
       routes: {
         '/welcome': (context) => WelcomeScreen(),
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignUpPage(),
-        '/home': (context) => HomePageScreen()
+        '/home': (context) => HomePageScreen(),
+        '/create-game-event': (context) => AddGameEventPage()
       },
     );
   }
