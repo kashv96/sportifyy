@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
+import 'package:sportifyy/Presentation/HomePage/home_page_screen.dart';
 import 'package:sportifyy/Presentation/Welcome/welcome_screen.dart';
 import 'package:sportifyy/Providers/user_provider.dart';
 import 'package:sportifyy/Widgets/loading_diaglog.dart';
@@ -35,7 +36,7 @@ class _SignUpPageState extends State<SignUpPage> with GetItStateMixin {
       ToastHelper.show('Sign up successful!', textColor: Colors.green);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => WelcomeScreen()),
+        MaterialPageRoute(builder: (context) => HomePageScreen()),
       );
     } on Exception catch (e) {
       LoadingDialog.hide(context);
