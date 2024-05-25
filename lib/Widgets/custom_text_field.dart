@@ -5,7 +5,9 @@ class CustomTextField extends StatelessWidget {
   final String? label;
   final Function(String) onChanged;
   final bool obscureText;
+  final bool readOnly;
   final TextInputType keyboardType;
+  final String? initialValue;
   final String? errorText;
   final List<TextInputFormatter>? inputFormatters;
 
@@ -13,7 +15,9 @@ class CustomTextField extends StatelessWidget {
     Key? key,
     this.label,
     required this.onChanged,
+    this.initialValue,
     this.obscureText = false,
+    this.readOnly = false,
     this.keyboardType = TextInputType.text,
     this.errorText,
     this.inputFormatters,
@@ -21,11 +25,15 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController controller =
+        TextEditingController(text: initialValue);
     return TextField(
       onChanged: onChanged,
+      controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
+      readOnly: readOnly,
       decoration: InputDecoration(
         labelText: label,
         errorText: errorText,

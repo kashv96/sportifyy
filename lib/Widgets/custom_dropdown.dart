@@ -29,24 +29,35 @@ class _CustomDropdownState extends State<CustomDropdown> {
           child: Text(widget.label,
               style: TextStyle(
                   fontSize: 16,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.w600)),
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black54)),
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
-            border: Border.all(
-                color: Colors.grey.shade400, width: 1), // Black border
+            color: Colors.white,
+            border: Border.all(color: Colors.grey.shade400, width: 1),
             borderRadius: BorderRadius.circular(20),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
-              value: widget.selectedValue, // Ensure this is properly managed
+              value: widget.selectedValue,
               isExpanded: true,
-              items: widget.items.map((String value) {
+              icon: Icon(Icons.arrow_drop_down, color: Colors.black),
+              iconSize: 24,
+              style: TextStyle(color: Colors.black, fontSize: 16),
+              dropdownColor: Colors.white,
+              items: widget.items.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    child: Text(value, style: TextStyle(color: Colors.black)),
+                  ),
                 );
               }).toList(),
               onChanged: (newValue) {
@@ -55,8 +66,6 @@ class _CustomDropdownState extends State<CustomDropdown> {
                 });
                 widget.onChanged(newValue);
               },
-              icon: Icon(Icons.arrow_drop_down, color: Colors.black),
-              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
           ),
         ),

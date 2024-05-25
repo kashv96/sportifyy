@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sportifyy/Presentation/GameEvent/add_game_event.dart';
 import 'package:sportifyy/Presentation/HomePage/home_page_screen.dart';
 import 'package:sportifyy/Presentation/Welcome/welcome_screen.dart';
+import 'package:sportifyy/Providers/game_provider.dart';
 import 'package:sportifyy/injection.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'Presentation/LoginPage/login_page_screen.dart';
 import 'Presentation/SignUp/sign_up_screen.dart';
@@ -21,39 +23,42 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Ballzy',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        textTheme: const TextTheme(
-          titleLarge: TextStyle(
-            fontFamily: 'Rubik',
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (context) => GameProvider())],
+      child: MaterialApp(
+        title: 'Ballzy',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          textTheme: const TextTheme(
+            titleLarge: TextStyle(
+              fontFamily: 'Rubik',
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+            bodyMedium: TextStyle(
+              fontFamily: 'Rubik',
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          bodyMedium: TextStyle(
-            fontFamily: 'Rubik',
-            fontSize: 10,
-            fontWeight: FontWeight.bold,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            ),
           ),
         ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          ),
-        ),
+        home: AddGameEventPage(),
+        routes: {
+          '/welcome': (context) => WelcomeScreen(),
+          '/login': (context) => LoginPage(),
+          '/signup': (context) => SignUpPage(),
+          '/home': (context) => HomePageScreen(),
+          '/create-game-event': (context) => AddGameEventPage()
+        },
       ),
-      home: AddGameEventPage(),
-      routes: {
-        '/welcome': (context) => WelcomeScreen(),
-        '/login': (context) => LoginPage(),
-        '/signup': (context) => SignUpPage(),
-        '/home': (context) => HomePageScreen(),
-        '/create-game-event': (context) => AddGameEventPage()
-      },
     );
   }
 }

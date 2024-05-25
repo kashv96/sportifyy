@@ -35,7 +35,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           break;
         case 1:
           iconData = FontAwesomeIcons.locationArrow;
-          iconRoute = '/home';
+          iconRoute = '/create-game-event';
           break;
         case 2:
           iconData = FontAwesomeIcons.solidSquarePlus;
@@ -43,11 +43,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           break;
         case 3:
           iconData = FontAwesomeIcons.solidComments;
-          iconRoute = '/home';
+          iconRoute = '/create-game-event';
           break;
         case 4:
           iconData = FontAwesomeIcons.solidUser;
-          iconRoute = '/home';
+          iconRoute = '/create-game-event';
           break;
         default:
           iconData = FontAwesomeIcons.houseChimney;
