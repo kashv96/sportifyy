@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../Widgets/custom_dropdown.dart'; // Ensure the path is correct
+import 'package:sportifyy/Providers/game_provider.dart';
+import '../../Widgets/custom_dropdown.dart';
+import '../../injection.dart'; // Ensure the path is correct
 
 class GameEventDateTimeBottomsheet extends StatefulWidget {
   @override
@@ -14,43 +16,19 @@ class _GameEventDateTimeBottomsheetState
   String? selectedYear;
   String? selectedHour;
   String? selectedMinute;
-  String? selectedSecond;
+  String? selectedZone;
 
-  final List<String> days =
-      List.generate(31, (index) => (index + 1).toString());
-  final List<String> months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec'
-  ];
-  final List<String> years =
-      List.generate(3, (index) => (2024 + index).toString());
-  final List<String> hours =
-      List.generate(24, (index) => index.toString().padLeft(2, '0'));
-  final List<String> minutes =
-      List.generate(60, (index) => index.toString().padLeft(2, '0'));
-  final List<String> seconds =
-      List.generate(60, (index) => index.toString().padLeft(2, '0'));
+  final GameProvider _gameProvider = getIt();
 
   @override
   void initState() {
     super.initState();
-    // Setting initial values for dropdowns
-    selectedDay = days[0];
-    selectedMonth = months[0];
-    selectedYear = years[0];
-    selectedHour = hours[0];
-    selectedMinute = minutes[0];
-    selectedSecond = seconds[0];
+    selectedDay = _gameProvider.days[0];
+    selectedMonth = _gameProvider.months[0];
+    selectedYear = _gameProvider.years[0];
+    selectedHour = _gameProvider.hours[0];
+    selectedMinute = _gameProvider.minutes[0];
+    selectedZone = _gameProvider.ampm[0];
   }
 
   @override
@@ -59,7 +37,7 @@ class _GameEventDateTimeBottomsheetState
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -69,7 +47,7 @@ class _GameEventDateTimeBottomsheetState
                 Expanded(
                   child: CustomDropdown(
                     label: "Day",
-                    items: days,
+                    items: _gameProvider.days,
                     selectedValue: selectedDay,
                     onChanged: (value) {
                       setState(() {
@@ -78,11 +56,11 @@ class _GameEventDateTimeBottomsheetState
                     },
                   ),
                 ),
-                SizedBox(width: 10), // Add space between the dropdowns
+                const SizedBox(width: 10),
                 Expanded(
                   child: CustomDropdown(
                     label: "Month",
-                    items: months,
+                    items: _gameProvider.months,
                     selectedValue: selectedMonth,
                     onChanged: (value) {
                       setState(() {
@@ -91,11 +69,11 @@ class _GameEventDateTimeBottomsheetState
                     },
                   ),
                 ),
-                SizedBox(width: 10), // Add space between the dropdowns
+                const SizedBox(width: 10),
                 Expanded(
                   child: CustomDropdown(
                     label: "Year",
-                    items: years,
+                    items: _gameProvider.years,
                     selectedValue: selectedYear,
                     onChanged: (value) {
                       setState(() {
@@ -106,14 +84,14 @@ class _GameEventDateTimeBottomsheetState
                 ),
               ],
             ),
-            SizedBox(height: 20), // Space between rows
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   child: CustomDropdown(
                     label: "Hour",
-                    items: hours,
+                    items: _gameProvider.hours,
                     selectedValue: selectedHour,
                     onChanged: (value) {
                       setState(() {
@@ -122,11 +100,11 @@ class _GameEventDateTimeBottomsheetState
                     },
                   ),
                 ),
-                SizedBox(width: 10), // Add space between the dropdowns
+                const SizedBox(width: 10),
                 Expanded(
                   child: CustomDropdown(
                     label: "Minute",
-                    items: minutes,
+                    items: _gameProvider.minutes,
                     selectedValue: selectedMinute,
                     onChanged: (value) {
                       setState(() {
@@ -135,34 +113,36 @@ class _GameEventDateTimeBottomsheetState
                     },
                   ),
                 ),
-                SizedBox(width: 10), // Add space between the dropdowns
+                const SizedBox(width: 10),
                 Expanded(
                   child: CustomDropdown(
-                    label: "Second",
-                    items: seconds,
-                    selectedValue: selectedSecond,
+                    label: "AM/PM",
+                    items: _gameProvider.ampm,
+                    selectedValue: selectedZone,
                     onChanged: (value) {
                       setState(() {
-                        selectedSecond = value!;
+                        selectedZone = value!;
                       });
                     },
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 30), // Space before the button
+            const SizedBox(height: 30), // Space before the button
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.black, // Text color
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  minimumSize: Size(double.infinity, 50) // Button size
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  minimumSize: const Size(double.infinity, 50) // Button size
                   ),
               onPressed: () {
-                // Functionality to save or use the date and time
+                _gameProvider.setGameDateTime(
+                    '$selectedMonth $selectedDay, $selectedYear $selectedHour:$selectedMinute $selectedZone');
                 Navigator.pop(context);
               },
-              child: Text('Save Date & Time', style: TextStyle(fontSize: 18)),
+              child: const Text('Save Date & Time',
+                  style: TextStyle(fontSize: 18)),
             ),
           ],
         ),

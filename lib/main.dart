@@ -3,6 +3,7 @@ import 'package:sportifyy/Presentation/GameEvent/add_game_event.dart';
 import 'package:sportifyy/Presentation/HomePage/home_page_screen.dart';
 import 'package:sportifyy/Presentation/Welcome/welcome_screen.dart';
 import 'package:sportifyy/Providers/game_provider.dart';
+import 'package:sportifyy/Services/game_service.dart';
 import 'package:sportifyy/injection.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -12,10 +13,9 @@ import 'Presentation/SignUp/sign_up_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
-    url: 'https://dluqsheaszradbvoinev.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRsdXFzaGVhc3pyYWRidm9pbmV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDMzODcxNTgsImV4cCI6MjAxODk2MzE1OH0.ApCNj6wbwc0WqlSa0cEe8hCHdjn_rm8NwyJV_GIcVQI',
-  );
+      url: 'https://awqcivkxfipobaquwaim.supabase.co',
+      anonKey:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF3cWNpdmt4Zmlwb2JhcXV3YWltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY3NjY4MDcsImV4cCI6MjAzMjM0MjgwN30.B9dXOLU6uCiYE887UW7gkYqbK_N5JDmm8D9PaBwA_AQ');
   configureDependencies();
   runApp(MyApp());
 }
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => GameProvider())],
+      providers: [ChangeNotifierProvider(create: (_) => getIt<GameProvider>())],
       child: MaterialApp(
         title: 'Ballzy',
         debugShowCheckedModeBanner: false,

@@ -1,13 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sportifyy/Presentation/GameEvent/game_location_input.dart';
 import 'package:sportifyy/Presentation/GameEvent/open_game_bottomsheets.dart';
 import 'package:sportifyy/Providers/game_provider.dart';
 import 'package:sportifyy/Widgets/custom_text_field.dart';
+import 'package:sportifyy/Widgets/loading_diaglog.dart';
 import '../../Widgets/custom_dropdown.dart';
 import '../../Widgets/custom_navigation_bar.dart';
+import '../../Widgets/toast_helper.dart';
 import '../../injection.dart';
+import '../HomePage/home_page_screen.dart';
 
 class AddGameEventPage extends StatefulWidget {
   @override
@@ -15,8 +15,6 @@ class AddGameEventPage extends StatefulWidget {
 }
 
 class _AddGameEventPageState extends State<AddGameEventPage> {
-  String? _selectedDate = 'Option 1';
-  String? _gameLocation = 'City 1, Country';
   int _selectedIndex = 2;
   final GameProvider _gameProvider = getIt();
   @override
@@ -43,23 +41,6 @@ class _AddGameEventPageState extends State<AddGameEventPage> {
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 20),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 0),
-                  child: Text('Game Title',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black54,
-                          fontWeight: FontWeight.w600)),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomTextField(
-                  onChanged: (val) => {},
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4, vertical: 0),
                   child: Text('Game Location',
@@ -101,15 +82,14 @@ class _AddGameEventPageState extends State<AddGameEventPage> {
                   height: 10,
                 ),
                 InkWell(
-                  onTap: () =>
-                      OpenGameBottomsheets.showGameEventDateModal(context),
+                  onTap: () => _openGameDateTimeModal(),
                   child: Column(
                     children: [
                       IgnorePointer(
                         ignoring: true,
                         child: CustomTextField(
                           readOnly: true,
-                          initialValue: 'Tap to add game date and time',
+                          initialValue: _gameProvider.gameDateTime,
                           onChanged: (_) {},
                         ),
                       ),
@@ -121,43 +101,53 @@ class _AddGameEventPageState extends State<AddGameEventPage> {
                 ),
                 CustomDropdown(
                   label: 'Game Type',
-                  selectedValue: _selectedDate,
-                  items: const ['Option 1', 'Option 2', 'Option 3'],
+                  selectedValue: _gameProvider.selectedGame,
+                  items: _gameProvider.outdoorGames,
                   onChanged: (value) {
-                    setState(() {
-                      _selectedDate = value;
-                    });
+                    _gameProvider.setSelectedGame(value);
+                    setState(() {});
                   },
                 ),
                 const SizedBox(
                   height: 15,
                 ),
                 CustomDropdown(
-                  label: 'Maximum Players',
-                  selectedValue: _selectedDate,
-                  items: const ['Option 1', 'Option 2', 'Option 3'],
+                  label: 'Maximum Spots',
+                  selectedValue: _gameProvider.selectedGameSpots,
+                  items: _gameProvider.maxSpots,
                   onChanged: (value) {
-                    setState(() {
-                      _selectedDate = value;
-                    });
+                    _gameProvider.setMaxSpots(value);
+                    setState(() {});
                   },
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                CustomDropdown(
-                  label: 'Event Duration',
-                  selectedValue: _selectedDate,
-                  items: const [
-                    'Option 1',
-                    'Option 2',
-                    'Option 3'
-                  ], // Placeholder for date options
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedDate = value;
-                    });
-                  },
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4, vertical: 0),
+                  child: Text('Event Duration',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w600)),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                InkWell(
+                  onTap: () => _openGameDurationModal(),
+                  child: Column(
+                    children: [
+                      IgnorePointer(
+                        ignoring: true,
+                        child: CustomTextField(
+                          readOnly: true,
+                          initialValue: _gameProvider.gameDuration,
+                          onChanged: (_) {},
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 25,
@@ -175,7 +165,7 @@ class _AddGameEventPageState extends State<AddGameEventPage> {
                               fontWeight: FontWeight.w900),
                           children: <TextSpan>[
                             TextSpan(
-                              text: '(per player)',
+                              text: '(per spot)',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w200),
@@ -187,11 +177,14 @@ class _AddGameEventPageState extends State<AddGameEventPage> {
                 ),
                 CustomTextField(
                   keyboardType: TextInputType.number,
-                  onChanged: (val) => {},
+                  onChanged: (val) => {_gameProvider.setEntryPricePerSpot(val)},
+                  initialValue: _gameProvider.entryPricePerSpot,
                 ),
                 const SizedBox(height: 35),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _handleRegisterGameEvent(context);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -223,5 +216,36 @@ class _AddGameEventPageState extends State<AddGameEventPage> {
     OpenGameBottomsheets.showGameLocationInputModal(context, onClosed: () {
       setState(() {});
     });
+  }
+
+  void _openGameDateTimeModal() {
+    OpenGameBottomsheets.showGameEventDateModal(context, onClosed: () {
+      setState(() {});
+    });
+  }
+
+  void _openGameDurationModal() {
+    OpenGameBottomsheets.showGameEventDurationModal(context, onClosed: () {
+      setState(() {});
+    });
+  }
+
+  void _handleRegisterGameEvent(BuildContext context) async {
+    LoadingDialog.show(context, message: "Creating game event...");
+    bool created = await _gameProvider.registerGameEvent();
+    await Future.delayed(const Duration(seconds: 2));
+    LoadingDialog.hide(context);
+    if (created) {
+      ToastHelper.show('Event registeration successful!',
+          textColor: Colors.green);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePageScreen()),
+      );
+    } else {
+      ToastHelper.show(
+          'Something went wrong while registration, Please try again!',
+          textColor: Colors.red);
+    }
   }
 }
