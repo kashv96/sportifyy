@@ -4,6 +4,7 @@ import 'package:sportifyy/Exceptions/failures.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sportifyy/Models/Requests/create_game_event_req.dart';
+import '../Models/Entities/GameEvent.dart';
 import '../Services/game_service.dart';
 
 @lazySingleton
@@ -139,7 +140,8 @@ class GameProvider with ChangeNotifier {
     'Rock Climbing'
   ];
   final List<String> _maxSpots =
-      List.generate(100, (index) => index.toString().padLeft(2, '0'));
+      List.generate(100, (index) => index.toString().padLeft(1, '0'));
+  List<GameEvent> _allGameEvents = [];
 
   GameProvider(this._gameService);
 
@@ -168,6 +170,7 @@ class GameProvider with ChangeNotifier {
   List<String> get ampm => _ampm;
   List<String> get outdoorGames => _outdoorGames;
   List<String> get maxSpots => _maxSpots;
+  List<GameEvent> get allGameEvents => _allGameEvents;
 
   void setAddress() {
     _address = '$_apt $_streetAddress, $_city, $_state, $_country, $_zipcode';
@@ -278,12 +281,18 @@ class GameProvider with ChangeNotifier {
 
     Either<Failure, List<Map<String, dynamic>>> response =
         await _gameService.registerGameEvent(req);
-
     response.fold((l) => res = false, (r) {
-      print(r);
       res = true;
       resetGameEventPage();
     });
     return res;
+  }
+
+  Future<void> getAllGameEvents() async {
+    var response = await _gameService.getAllGameEvents();
+    response.fold((l) => null, (r) {
+      _allGameEvents = r;
+      notifyListeners();
+    });
   }
 }

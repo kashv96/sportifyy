@@ -4,6 +4,7 @@ import 'package:sportifyy/Exceptions/failures.dart';
 import 'package:sportifyy/Models/Requests/create_game_event_req.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../Models/Entities/GameEvent.dart';
 import '../game_repository.dart';
 
 @LazySingleton(as: GameRepository)
@@ -29,6 +30,25 @@ class GameRepositoryImpl implements GameRepository {
       return Left(Failure('Failed to create game event: ${error.message}'));
     } catch (e) {
       return Left(Failure('An unexpected error occurred: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<GameEvent>>> getAllGameEvents() async {
+    try {
+      List<GameEvent> gameEvents = [];
+      final response = await supabase
+          .from('game_events')
+          .select()
+          .order('created_at', ascending: false);
+      if (response.length > 0) {
+        gameEvents = response.map((e) => GameEvent.fromJson(e)).toList();
+      }
+      return Right(gameEvents);
+    } on PostgrestException catch (e) {
+      return Left(Failure(e.message));
+    } catch (e) {
+      return Left(Failure('Failed to fetch game events: ${e.toString()}'));
     }
   }
 }

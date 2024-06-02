@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: AddGameEventPage(),
+        home: HomePageScreen(),
         routes: {
           '/welcome': (context) => WelcomeScreen(),
           '/login': (context) => LoginPage(),
